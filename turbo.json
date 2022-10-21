@@ -2,8 +2,30 @@
   "$schema": "https://turborepo.org/schema.json",
   "pipeline": {
     "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**"]
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "dist/**",
+        ".next/**"
+      ]
+    },
+    "dev-web#build": {
+      "dependsOn": [
+        "^build",
+        "$SPOTIFY_CLIENT_ID",
+        "$SPOTIFY_CLIENT_SECRET",
+        "$SPOTIFY_REFRESH_TOKEN",
+        "$NEXT_PUBLIC_GOOGLE_ANALYTICS"
+      ]
+    },
+    "me#build": {
+      "dependsOn": [
+        "^build",
+        "$GOOGLE_PHOTOS_CLIENT_ID",
+        "$GOOGLE_PHOTOS_CLIENT_SECRET",
+        "$GOOGLE_PHOTOS_REFRESH_TOKEN"
+      ]
     },
     "lint": {
       "outputs": []
@@ -11,5 +33,9 @@
     "dev": {
       "cache": false
     }
-  }
+  },
+  "globalDependencies": [
+    "tsconfig.json",
+    ".env.*"
+  ]
 }
